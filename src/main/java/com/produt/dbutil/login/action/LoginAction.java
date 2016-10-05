@@ -14,8 +14,9 @@ import java.util.List;
 /**
  * Created by durban126 on 16/10/5.
  */
-public class LoginAction extends HttpServlet{
+public class LoginAction extends HttpServlet {
     private LoginService service;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
@@ -35,9 +36,9 @@ public class LoginAction extends HttpServlet{
         params.add(pass);
         boolean flag = service.login(params);
 
-        if(flag){
+        if (flag) {
             req.getSession().setAttribute("username", username);
-            resp.sendRedirect(path+"/main.jsp");
+            resp.sendRedirect(path + "/main.jsp");
         }
     }
 
