@@ -10,6 +10,20 @@
 		Application
 	</display-name>
 
+	<filter>
+		<filter-name>
+			MainFilter
+		</filter-name>
+		<filter-class>
+			com.produt.dbutil.filter.MainFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>
+			MainFilter
+		</filter-name>
+		<url-pattern>/main.jsp</url-pattern>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>
 			RegisterAction
