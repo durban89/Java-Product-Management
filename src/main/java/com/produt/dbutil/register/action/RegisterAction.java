@@ -25,7 +25,7 @@ public class RegisterAction extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+//        super.doPost(req, resp);
 
         String path = req.getContextPath();
         resp.setContentType("text/html;charset=utf-8");
