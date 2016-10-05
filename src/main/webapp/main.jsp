@@ -1,5 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<% String path = request.getContextPath(); %>
+<%
+  String path = request.getContextPath();
+  String username = (String)session.getAttribute("username");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -13,19 +16,26 @@
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <form role="form" action="/servlet/LoginAction" method="post">
-        <div class="form-group">
-          <label for="username">用户名</label>
-          <input type="text" class="form-control" id="username" placeholder="输入用户名">
+    <div class="col-md-4">
+      <div class="list-group">
+        <a href="#" class="list-group-item active">
+          Cras justo odio
+        </a>
+        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+        <a href="#" class="list-group-item">Morbi leo risus</a>
+        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+        <a href="#" class="list-group-item">Vestibulum at eros</a>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">欢迎，<%=username%></h3>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="输入密码">
+        <div class="panel-body">
+          Panel content
         </div>
-        <button type="submit" class="btn btn-default">登录</button>
-        <a href="<%= path + "/register.jsp" %>">注册</a>
-      </form>
+      </div>
     </div>
   </div>
 </div>
