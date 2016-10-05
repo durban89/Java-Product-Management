@@ -14,16 +14,16 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
-      <form role="form" action="/servlet/LoginAction" method="post">
+      <form role="form" action="<%=path + "/servlet/RegisterAction"%>" method="post">
         <div class="form-group">
           <label for="username">用户名</label>
-          <input type="text" class="form-control" id="username" placeholder="输入用户名">
+          <input type="text" class="form-control" id="username" name="username" placeholder="输入用户名">
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="输入密码">
+          <input type="password" class="form-control" id="password" name="pass" placeholder="输入密码">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">注册</button>
       </form>
     </div>
   </div>
