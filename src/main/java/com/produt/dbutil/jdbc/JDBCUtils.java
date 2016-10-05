@@ -13,7 +13,7 @@ import java.util.Map;
 public class JDBCUtils {
     private final String USERNAME = "root";
     private final String PASS = "123456";
-    private final String DRIVER = "com.mysql.jdbc.Driver";
+    private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String URL = "jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false";
     private Connection connection;
     private PreparedStatement preparedStatement;
