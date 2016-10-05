@@ -23,7 +23,8 @@
           <label for="password">Password</label>
           <input type="password" class="form-control" id="password" placeholder="输入密码">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">登录</button>
+        <a href="<%= path + "/register.jsp" %>">注册</a>
       </form>
     </div>
   </div>
