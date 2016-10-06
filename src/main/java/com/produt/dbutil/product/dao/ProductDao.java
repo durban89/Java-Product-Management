@@ -4,7 +4,9 @@ import com.produt.dbutil.jdbc.JDBCUtils;
 import com.produt.dbutil.product.service.ProductService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by durban126 on 16/10/6.
@@ -30,5 +32,24 @@ public class ProductDao implements ProductService {
         }
 
         return flag;
+    }
+
+    public List<Map<String, Object>> listProduct(String proname) {
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        String sql = "SELECT * FROM product WHERE (1=1) ";
+        StringBuffer buffer = new StringBuffer(sql);
+        List<Object> params = new ArrayList<Object>();
+        if (proname != null) {
+            buffer.append(" AND proname LIKE ?");
+            params.add("%" + proname + "%");
+        }
+        jdbcUtils.getConnection();
+        try {
+            list = jdbcUtils.findMoreResult(buffer.toString(), params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

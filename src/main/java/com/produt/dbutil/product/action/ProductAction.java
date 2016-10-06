@@ -15,12 +15,26 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by durban126 on 16/10/6.
  */
 public class ProductAction extends HttpServlet {
     private ProductService service;
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=utf-8");
+        resp.setCharacterEncoding("utf-8");
+        req.setCharacterEncoding("utf-8");
+        String actionFlag = req.getParameter("action_flag");
+        if (actionFlag.equals("add")) {
+            addProduct(req, resp);
+        } else if (actionFlag.equals("list")) {
+            listProduct(req, resp);
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,8 +45,20 @@ public class ProductAction extends HttpServlet {
         String actionFlag = req.getParameter("action_flag");
         if (actionFlag.equals("add")) {
             addProduct(req, resp);
+        } else if (actionFlag.equals("list")) {
+            listProduct(req, resp);
         }
     }
+
+    private void listProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String proname = req.getParameter("proname");
+        List<Map<String, Object>> list = service.listProduct(proname);
+
+        req.setAttribute("listProduct", list);
+        req.setAttribute("proname", proname);
+        req.getRequestDispatcher("/product/item.jsp").forward(req, resp);
+    }
+
 
     private void addProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -68,15 +94,13 @@ public class ProductAction extends HttpServlet {
                     params.add(image);
                     String uploadPath = req.getRealPath("/upload");
                     File realPath = new File(uploadPath + "/" + image);
-//                    if(!realPath.exists()){
-//                        realPath.createNewFile();
-//                    }
+
                     fileItem.write(realPath);
 
                     //把数据插入数据库
                     boolean flag = service.addProduct(params);
                     if (flag) {
-                        resp.sendRedirect(path + "/product/item.jsp");
+                        resp.sendRedirect(path + "/servlet/ProductAction?action_flag=list");
                     }
                 }
             }
