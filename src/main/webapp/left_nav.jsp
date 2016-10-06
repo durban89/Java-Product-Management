@@ -20,14 +20,15 @@ String path = request.getContextPath();
 <body>
   <div class="container">
     <div class="row">
-      <div class="list-group">
-        <a href="<%=path+"/servlet/ProductAction?action_flag=list&page_num=1"%>" target="main" class="list-group-item active">
-          产品列表
-        </a>
-        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-        <a href="#" class="list-group-item">Morbi leo risus</a>
-        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-        <a href="#" class="list-group-item">Vestibulum at eros</a>
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">产品管理</div>
+          <div class="list-group">
+            <a href="<%=path+"/servlet/ProductAction?action_flag=list&page_num=1"%>" target="main" class="list-group-item active">
+              产品列表
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
