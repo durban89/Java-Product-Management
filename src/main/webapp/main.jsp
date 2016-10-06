@@ -17,23 +17,16 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <div class="list-group">
-        <a href="#" class="list-group-item active">
-          Cras justo odio
-        </a>
-        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-        <a href="#" class="list-group-item">Morbi leo risus</a>
-        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-        <a href="#" class="list-group-item">Vestibulum at eros</a>
-      </div>
+      <iframe src="<%=path+"/left_nav.jsp"%>" frameborder="0" style="border: none;min-height: 600px;"></iframe>
     </div>
     <div class="col-md-8">
+
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">欢迎，<%=username%></h3>
         </div>
-        <div class="panel-body">
-          Panel content
+        <div class="panel-body" style="padding: 0">
+          <iframe id="main" name="main" style="border: none;width: 100%;min-height: 600px;" frameborder="0"></iframe>
         </div>
       </div>
     </div>
