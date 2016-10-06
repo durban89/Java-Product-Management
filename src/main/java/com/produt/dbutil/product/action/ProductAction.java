@@ -34,7 +34,18 @@ public class ProductAction extends HttpServlet {
             addProduct(req, resp);
         } else if (actionFlag.equals("list")) {
             listProduct(req, resp);
+        } else if (actionFlag.equals("del")) {
+            delProduct(req, resp);
+        } else if (actionFlag.equals("view")) {
+            viewProduct(req, resp);
         }
+    }
+
+    private void viewProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String proid = req.getParameter("proid");
+        Map<String, Object> map = service.viewProduct(proid);
+        req.setAttribute("map", map);
+        req.getRequestDispatcher("/product/view.jsp").forward(req, resp);
     }
 
     @Override
@@ -48,6 +59,22 @@ public class ProductAction extends HttpServlet {
             addProduct(req, resp);
         } else if (actionFlag.equals("list")) {
             listProduct(req, resp);
+        } else if (actionFlag.equals("del")) {
+            delProduct(req, resp);
+        } else if (actionFlag.equals("view")) {
+            viewProduct(req, resp);
+        }
+    }
+
+    private void delProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String[] proids = req.getParameterValues("checkProid");
+        System.out.println("proids = " + proids);
+        String path = req.getContextPath();
+        boolean flag = service.delProduct(proids);
+        System.out.println("flag = " + flag);
+        if(flag){
+            System.out.println("path = " + path+"/servlet/ProductAction?action_flag=list&page_num=1");
+            resp.sendRedirect(path+"/servlet/ProductAction?action_flag=list&page_num=1");
         }
     }
 

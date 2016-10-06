@@ -12,4 +12,8 @@ public interface ProductService {
     public List<Map<String, Object>> listProduct(String proname, int start, int end);
 
     public int getItemCount();
+
+    public boolean delProduct(String[] ids);
+
+    public Map<String, Object> viewProduct(String proid);
 }

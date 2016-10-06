@@ -34,6 +34,43 @@ public class ProductDao implements ProductService {
         return flag;
     }
 
+    public Map<String, Object> viewProduct(String proid) {
+        Map<String, Object> map = null;
+        jdbcUtils.getConnection();
+        String sql = "SELECT * FROM product WHERE proid = ?";
+        List<Object> params = new ArrayList<Object>();
+        params.add(proid);
+        try {
+            map = jdbcUtils.findSingleResult(sql, params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            jdbcUtils.release();
+        }
+        return map;
+    }
+
+    public boolean delProduct(String[] ids) {
+        boolean flag = false;
+
+        jdbcUtils.getConnection();
+        try {
+            String[] sqls = new String[ids.length];
+            if (ids != null) {
+                for (int i = 0; i < ids.length; i++) {
+                    sqls[i] = "delete from product where proid = '" + ids[i] + "'";
+                }
+            }
+            flag = jdbcUtils.deleteByBatch(sqls);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            jdbcUtils.release();
+        }
+
+        return flag;
+    }
+
     public List<Map<String, Object>> listProduct(String proname, int start, int end) {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         String sql = "SELECT * FROM product WHERE (1=1) ";
