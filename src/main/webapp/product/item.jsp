@@ -52,45 +52,56 @@ String path = request.getContextPath();
           <div class="panel-heading">
             <h3 class="panel-title">查询结果</h3>
           </div>
-          <table class="table">
-            <tr>
-              <th>
-                <input type="checkbox" />
-              </th>
-              <th>
-                产品名称
-              </th>
-              <th>
-                产品价格
-              </th>
-              <th>
-                产品产地
-              </th>
-            </tr>
-            <%
-              if(!listProduct.isEmpty()){
-                for(Map<String, Object> map:listProduct){
-            %>
-            <tr>
-              <td>
-                <input type="checkbox" />
-                <input type="hidden" value="<%=map.get("proid")%>" name="proid" />
-              </td>
-              <td>
-                <%=map.get("proname")%>
-              </td>
-              <td>
-                <%=map.get("proprice")%>
-              </td>
-              <td>
-                <%=map.get("proaddress")%>
-              </td>
-            </tr>
-            <%
+          <form name="listForm" id="listForm" action="<%=path+"/servlet/ProductAction?action_flag=del"%>" method="post">
+            <table class="table">
+              <tr>
+                <th>
+                  <input type="checkbox" onclick="checkAll(this.checked)" name="checkall" />
+                </th>
+                <th>
+                  产品名称
+                </th>
+                <th>
+                  产品价格
+                </th>
+                <th>
+                  产品产地
+                </th>
+              </tr>
+              <%
+                if(!listProduct.isEmpty()){
+                  for(Map<String, Object> map:listProduct){
+              %>
+              <tr>
+                <td>
+                  <input type="checkbox" value="<%=map.get("proid")%>" name="checkProid"/>
+                  <input type="hidden" value="<%=map.get("proid")%>" name="proid" />
+                </td>
+                <td>
+                  <%=map.get("proname")%>
+                </td>
+                <td>
+                  <%=map.get("proprice")%>
+                </td>
+                <td>
+                  <%=map.get("proaddress")%>
+                </td>
+              </tr>
+              <%
+                  }
                 }
-              }
-            %>
-          </table>
+              %>
+              <tr>
+                <td>
+                  <button class="btn btn-primary" type="button" onclick="del()" >删除</button>
+                  <button class="btn btn-primary" type="button" onclick="view()" >查看</button>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </form>
         </div>
         <div class="panel panel-default">
           <div class="panel-body">
@@ -139,6 +150,59 @@ String path = request.getContextPath();
 
   function changePage(page){
     window.location.href="<%=path+"/servlet/ProductAction?action_flag=list&page_num="%>"+page;
+  }
+
+  function getSelectCount(){
+    var count = 0;
+    var ids = document.getElementsByName("checkProid");
+    for(var i=0;i<ids.length;i++){
+      if(ids[i].checked){
+        count++;
+      }
+    }
+    return count;
+  }
+
+  function getSelectValue(){
+    var ids = document.getElementsByName("checkProid");
+    for(var i=0;i<ids.length;i++){
+      if(ids[i].checked){
+        return ids[i].value;
+      }
+    }
+  }
+
+  function checkAll(flag){
+    var ids = document.getElementsByName("checkProid");
+    for(var i=0;i<ids.length;i++){
+      ids[i].checked = flag;
+    }
+  }
+
+  function del(){
+    if(getSelectCount() <= 0){
+      alert("至少选择一个选项");
+      return false;
+    }
+    var formObj = document.listForm;
+    formObj.action = "<%=path+"/servlet/ProductAction?action_flag=del"%>";
+    formObj.submit();
+    return true;
+  }
+
+  function view(){
+    if(getSelectCount() <= 0){
+      alert("至少选择一个选项");
+      return false;
+    }
+
+    if(getSelectCount() > 1){
+      alert("最多选择一个选项");
+      return false;
+    }
+    var formObj = document.listForm;
+    formObj.action = "<%=path%>/servlet/ProductAction?action_flag=view&proid="+getSelectValue();
+    formObj.submit();
   }
   </script>
 </body>
