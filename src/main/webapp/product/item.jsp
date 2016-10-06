@@ -1,3 +1,5 @@
+<%@ page
+    import="java.util.*" %>
 <%--
   Created by IntelliJ IDEA.
   User: durban126
@@ -10,6 +12,9 @@
     language="java" %>
 <%
 String path = request.getContextPath();
+  String proname = (String) request.getAttribute("proname");
+  proname = (proname == null ? "" : proname);
+  List<Map<String, Object>> listProduct = (List<Map<String, Object>>) request.getAttribute("listProduct");
 %>
 <html>
 <head>
@@ -24,19 +29,21 @@ String path = request.getContextPath();
           <div class="panel-heading">
             <h3 class="panel-title">产品搜素</h3>
           </div>
-          <table class="table">
-            <tr>
-              <td>产品名称</td>
-              <td><input class="form-control text-input" /></td>
-            </tr>
-            <tr>
-              <td>
-                <button class="btn btn-primary">搜索</button>
-                <a class="btn btn-primary" href="<%=path+"/product/add.jsp" %>">添加</a>
-              </td>
-              <td></td>
-            </tr>
-          </table>
+          <form action="<%=path+"/servlet/ProductAction?action_flag=list"%>" method="post">
+            <table class="table">
+              <tr>
+                <td>产品名称</td>
+                <td><input name="proname" class="form-control text-input" value="<%=proname%>"/></td>
+              </tr>
+              <tr>
+                <td>
+                  <button class="btn btn-primary" type="submit">搜索</button>
+                  <a class="btn btn-primary" href="<%=path+"/product/add.jsp" %>">添加</a>
+                </td>
+                <td></td>
+              </tr>
+            </table>
+          </form>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -57,6 +64,29 @@ String path = request.getContextPath();
                 产品产地
               </th>
             </tr>
+            <%
+              if(!listProduct.isEmpty()){
+                for(Map<String, Object> map:listProduct){
+            %>
+            <tr>
+              <td>
+                <input type="checkbox" />
+                <input type="hidden" value="<%=map.get("proid")%>" name="proid" />
+              </td>
+              <td>
+                <%=map.get("proname")%>
+              </td>
+              <td>
+                <%=map.get("proprice")%>
+              </td>
+              <td>
+                <%=map.get("proaddress")%>
+              </td>
+            </tr>
+            <%
+                }
+              }
+            %>
           </table>
         </div>
         <div class="panel panel-default">
