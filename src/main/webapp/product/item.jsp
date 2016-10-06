@@ -1,5 +1,6 @@
 <%@ page
     import="java.util.*" %>
+<%@ page import="com.produt.dbutil.util.DividePage" %>
 <%--
   Created by IntelliJ IDEA.
   User: durban126
@@ -14,6 +15,8 @@
 String path = request.getContextPath();
   String proname = (String) request.getAttribute("proname");
   proname = (proname == null ? "" : proname);
+  DividePage dividePage = (DividePage) request.getAttribute("dividePage");
+
   List<Map<String, Object>> listProduct = (List<Map<String, Object>>) request.getAttribute("listProduct");
 %>
 <html>
@@ -91,7 +94,25 @@ String path = request.getContextPath();
         </div>
         <div class="panel panel-default">
           <div class="panel-body">
-            <h3 class="panel-title">分页</h3>
+            <h3 class="panel-title">
+              共<%=dividePage.getPageCount()%>页
+              <a href="javascript:first()">首页</a>
+              <a href="javascript:forward()">上一页</a>
+              <a href="javascript:next()">下一页</a>
+              <a href="javascript:last()">尾页</a>
+              跳转到
+              <select onchange="changePage(this.value)">
+                <%
+                  int len = dividePage.getPageCount();
+                  for(int i =1; i<=len;i++){
+                %>
+                <option value="<%=i%>" <%=dividePage.getCurrentPage() == i ? "selected" : ""%>><%=i%></option>
+                <%
+                  }
+                %>
+
+              </select>
+            </h3>
           </div>
         </div>
       </div>
@@ -99,5 +120,26 @@ String path = request.getContextPath();
   </div>
   <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
   <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+  function first(){
+    window.location.href="<%=path+"/servlet/ProductAction?action_flag=list&page_num=1"%>";
+  }
+
+  function forward(){
+    window.location.href="<%=path+"/servlet/ProductAction?action_flag=list&page_num="+(dividePage.getCurrentPage() - 1)%>";
+  }
+
+  function next(){
+    window.location.href="<%=path+"/servlet/ProductAction?action_flag=list&page_num="+(dividePage.getCurrentPage() + 1)%>";
+  }
+
+  function last(){
+    window.location.href="<%=path+"/servlet/ProductAction?action_flag=list&page_num="+dividePage.getPageCount()%>";
+  }
+
+  function changePage(page){
+    window.location.href="<%=path+"/servlet/ProductAction?action_flag=list&page_num="%>"+page;
+  }
+  </script>
 </body>
 </html>
