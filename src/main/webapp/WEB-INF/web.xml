@@ -24,6 +24,7 @@
 		</filter-name>
 		<url-pattern>/main.jsp</url-pattern>
 	</filter-mapping>
+
 	<servlet>
 		<servlet-name>
 			RegisterAction
@@ -38,6 +39,12 @@
 		</servlet-name>
 		<servlet-class>
 			com.produt.dbutil.login.action.LoginAction
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ProductAction</servlet-name>
+		<servlet-class>
+			com.produt.dbutil.product.action.ProductAction
 		</servlet-class>
 	</servlet>
 
@@ -56,6 +63,10 @@
 		<url-pattern>
 			/servlet/LoginAction
 		</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProductAction</servlet-name>
+		<url-pattern>/servlet/ProductAction</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
