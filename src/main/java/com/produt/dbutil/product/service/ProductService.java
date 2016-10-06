@@ -9,6 +9,8 @@ import java.util.Map;
 public interface ProductService {
     public boolean addProduct(List<Object> params);
 
+    public List<Map<String, Object>> listProduct(String proname);
+
     public List<Map<String, Object>> listProduct(String proname, int start, int end);
 
     public int getItemCount();

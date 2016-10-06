@@ -22,7 +22,9 @@
 		<filter-name>
 			MainFilter
 		</filter-name>
-		<url-pattern>/main.jsp</url-pattern>
+		<url-pattern>
+			/main.jsp
+		</url-pattern>
 	</filter-mapping>
 
 	<servlet>
@@ -42,9 +44,19 @@
 		</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>ProductAction</servlet-name>
+		<servlet-name>
+			ProductAction
+		</servlet-name>
 		<servlet-class>
 			com.produt.dbutil.product.action.ProductAction
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>
+			JsonAction
+		</servlet-name>
+		<servlet-class>
+			com.produt.dbutil.product.json.ProductJsonAction
 		</servlet-class>
 	</servlet>
 
@@ -65,8 +77,20 @@
 		</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ProductAction</servlet-name>
-		<url-pattern>/servlet/ProductAction</url-pattern>
+		<servlet-name>
+			ProductAction
+		</servlet-name>
+		<url-pattern>
+			/servlet/ProductAction
+		</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>
+			JsonAction
+		</servlet-name>
+		<url-pattern>
+			/servlet/JsonAction
+		</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>

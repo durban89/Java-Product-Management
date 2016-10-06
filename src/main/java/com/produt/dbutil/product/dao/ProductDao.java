@@ -71,6 +71,19 @@ public class ProductDao implements ProductService {
         return flag;
     }
 
+    public List<Map<String, Object>> listProduct(String proname) {
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        String sql = "SELECT * FROM product";
+        jdbcUtils.getConnection();
+        try {
+            list = jdbcUtils.findMoreResult(sql, null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public List<Map<String, Object>> listProduct(String proname, int start, int end) {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         String sql = "SELECT * FROM product WHERE (1=1) ";
