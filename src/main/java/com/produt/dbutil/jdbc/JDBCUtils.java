@@ -18,6 +18,7 @@ public class JDBCUtils {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    private Statement statement;
 
     public JDBCUtils() {
         try {
@@ -36,6 +37,21 @@ public class JDBCUtils {
             e.printStackTrace();
         }
         return connection;
+    }
+
+    public boolean deleteByBatch(String[] sqls) throws SQLException {
+        boolean flag = false;
+        statement = connection.createStatement();
+        if(sqls != null){
+            for (int i = 0; i< sqls.length; i++){
+                statement.addBatch(sqls[i]);
+            }
+        }
+        int[] count = statement.executeBatch();
+        if(count!=null){
+            flag = true;
+        }
+        return flag;
     }
 
     /**
