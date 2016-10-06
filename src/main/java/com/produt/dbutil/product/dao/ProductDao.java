@@ -34,7 +34,7 @@ public class ProductDao implements ProductService {
         return flag;
     }
 
-    public List<Map<String, Object>> listProduct(String proname) {
+    public List<Map<String, Object>> listProduct(String proname, int start, int end) {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         String sql = "SELECT * FROM product WHERE (1=1) ";
         StringBuffer buffer = new StringBuffer(sql);
@@ -43,6 +43,11 @@ public class ProductDao implements ProductService {
             buffer.append(" AND proname LIKE ?");
             params.add("%" + proname + "%");
         }
+
+        buffer.append(" LIMIT ?,?");
+        params.add(start);
+        params.add(end);
+
         jdbcUtils.getConnection();
         try {
             list = jdbcUtils.findMoreResult(buffer.toString(), params);
@@ -51,5 +56,22 @@ public class ProductDao implements ProductService {
         }
 
         return list;
+    }
+
+    public int getItemCount() {
+        int result = 0;
+        Map<String, Object> map = null;
+        String sql = "SELECT COUNT(*) AS total FROM product";
+        jdbcUtils.getConnection();
+        try {
+            map = jdbcUtils.findSingleResult(sql, null);
+            result = Integer.parseInt(map.get("total").toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            jdbcUtils.release();
+        }
+
+        return result;
     }
 }

@@ -2,6 +2,7 @@ package com.produt.dbutil.product.action;
 
 import com.produt.dbutil.product.dao.ProductDao;
 import com.produt.dbutil.product.service.ProductService;
+import com.produt.dbutil.util.DividePage;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -52,8 +53,21 @@ public class ProductAction extends HttpServlet {
 
     private void listProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String proname = req.getParameter("proname");
-        List<Map<String, Object>> list = service.listProduct(proname);
 
+        int recordCount = service.getItemCount();
+        int currentPage = 1;
+        String pageNum = req.getParameter("page_num");
+        if(pageNum != null){
+            currentPage = Integer.parseInt(pageNum);
+        }
+
+        DividePage dividePage = new DividePage(5,recordCount, currentPage);
+        int start = dividePage.getFromIndex();
+        int end = dividePage.getToIndex();
+
+        List<Map<String, Object>> list = service.listProduct(proname, start, end);
+
+        req.setAttribute("dividePage", dividePage);
         req.setAttribute("listProduct", list);
         req.setAttribute("proname", proname);
         req.getRequestDispatcher("/product/item.jsp").forward(req, resp);
