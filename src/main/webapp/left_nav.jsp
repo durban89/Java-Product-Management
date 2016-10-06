@@ -21,7 +21,7 @@ String path = request.getContextPath();
   <div class="container">
     <div class="row">
       <div class="list-group">
-        <a href="<%=path+"/servlet/ProductAction?action_flag=list"%>" target="main" class="list-group-item active">
+        <a href="<%=path+"/servlet/ProductAction?action_flag=list&page_num=1"%>" target="main" class="list-group-item active">
           产品列表
         </a>
         <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
