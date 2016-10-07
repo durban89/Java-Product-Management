@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<books>
+	<book id="10">
+		<name>小说</name>
+		<price>23</price>
+	</book>
+	<book id="11">
+		<name>科技</name>
+		<price>24</price>
+	</book>
+</books>
